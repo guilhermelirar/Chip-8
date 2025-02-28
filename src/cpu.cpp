@@ -1,4 +1,6 @@
 #include "cpu.hpp"
 #include "chip8.hpp"
 
-CPU::CPU(CHIP8* chip8): chip8(chip8) {}
+CPU::CPU(CHIP8* chip8): chip8(chip8) {
+  pc = 0x200;
+}
