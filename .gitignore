@@ -1,0 +1,6 @@
+catch.hpp
+compiler_commands.json
+.cache/
+build/
+Chip8
+Chip8_tests
