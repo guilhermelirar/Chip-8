@@ -20,7 +20,9 @@ public:
 
   CHIP8* chip8;       // CHIP-8 System
   
-  CPU(CHIP8* chip8);  // Constructor  
+  CPU(CHIP8* chip8);  // Constructor
+  
+  void DecodeAndExecute(uint16_t opcode);
 };
 
 #endif // CPU_HPP
