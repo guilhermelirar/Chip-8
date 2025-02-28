@@ -19,7 +19,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ_FILES)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-$(TEST_TARGET): $(TEST_OBJ_FILES) $(OBJ_FILES)
+$(TEST_TARGET): $(TEST_OBJ_FILES) $(filter-out $(BUILD_DIR)/main.o, $(OBJ_FILES))
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
