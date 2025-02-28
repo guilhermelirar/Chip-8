@@ -7,7 +7,7 @@
 
 class CHIP8 {
 public:
-  uint16_t memory[0x1000]; // 4kb memory
+  uint8_t memory[0x1000];  // 4kb memory
   CPU cpu;                 // System CPU
   Screen screen;
 
