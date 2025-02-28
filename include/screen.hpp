@@ -9,7 +9,8 @@ public:
   bool buffer[0x800];   // Pixel buffer
  
   Screen(CHIP8* chip8); // Constructor
-  // ...
+  
+  void Clear();         // Clears display
 };
 
 #endif // SCREEN_HPP
