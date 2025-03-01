@@ -9,7 +9,8 @@ TEST_CASE("Program counter starts at 0x200", "[CPU]") {
   REQUIRE(c.cpu.pc == 0x200);
 }
 
-TEST_CASE("Opcode 0x00E0 (CLS) clears display)", "[CPU and Screen]") {
+// 00E0
+TEST_CASE("Opcode 0x00E0 (CLS) clears display", "[CPU and Screen]") {
   memset(c.screen.buffer, true, sizeof(c.screen.buffer)); // Forcing all pixels to true
   c.cpu.DecodeAndExecute(0x00E0);                         // Calls instruction
   
@@ -17,4 +18,9 @@ TEST_CASE("Opcode 0x00E0 (CLS) clears display)", "[CPU and Screen]") {
   for (int i = 0; i < 64 * 32; i++) { 
     REQUIRE_FALSE(c.screen.buffer[i]); 
   }
+}
+
+TEST_CASE("Opcode 0x1NNN jups to address NNN", "[CPU]") {
+  c.cpu.DecodeAndExecute(0x1ABC);
+  REQUIRE(c.cpu.pc == 0xABC);
 }
