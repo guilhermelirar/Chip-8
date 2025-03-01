@@ -20,7 +20,7 @@ TEST_CASE("Opcode 0x00E0 (CLS) clears display", "[CPU and Screen]") {
   }
 }
 
-TEST_CASE("Opcode 0x1NNN jups to address NNN", "[CPU]") {
+TEST_CASE("Opcode 0x1NNN (JMP) jumps to address NNN", "[CPU]") {
   c.cpu.DecodeAndExecute(0x1ABC);
   REQUIRE(c.cpu.pc == 0xABC);
 }
