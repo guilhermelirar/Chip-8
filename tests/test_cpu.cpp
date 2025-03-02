@@ -31,3 +31,10 @@ TEST_CASE("Opcode 0x6XNN loads a register to NN", "[CPU]") {
   c.cpu.DecodeAndExecute(0x6AFF);
   REQUIRE(c.cpu.V[0xA] == 0xFF);
 }
+
+// 7XNN
+TEST_CASE("Opcode 0x7XNN adds NN to register X", "[CPU]") {
+  c.cpu.DecodeAndExecute(0x600A); // Initializes V[0] with A
+  c.cpu.DecodeAndExecute(0x7001);
+  REQUIRE(c.cpu.V[0] == 0xB);     // A + 1
+}
