@@ -38,3 +38,9 @@ TEST_CASE("Opcode 0x7XNN adds NN to register X", "[CPU]") {
   c.cpu.DecodeAndExecute(0x7001);
   REQUIRE(c.cpu.V[0] == 0xB);     // A + 1
 }
+
+// ANNN
+TEST_CASE("Opcode 0xANNN loads index (I) register to NNN", "[CPU]") {
+  c.cpu.DecodeAndExecute(0xABCD); // Index register points to BCD
+  REQUIRE(c.cpu.I == 0xBCD);
+}
