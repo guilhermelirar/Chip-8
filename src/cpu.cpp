@@ -22,11 +22,19 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
-    // 0x6XNN LOAD X to NN
+    // 0x6XNN LOAD X with NN
     case (0x6): {
       uint8_t reg = (0x0F00 & opcode) >> 8;
       uint8_t value = (0x00FF & opcode); 
       V[reg] = value;
+      break;
+    }
+
+    // 0x7XNN ADDS NN to X
+    case (0x7): {
+      uint8_t reg = (0x0F00 & opcode) >> 8;
+      uint8_t value = (0x00FF & opcode);
+      V[reg] += value;
       break;
     }
   }  
