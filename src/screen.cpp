@@ -50,26 +50,25 @@ void Screen::InitSDL() {
   }
 }
 
-void Screen::drawSprite(uint8_t x, uint8_t y, 
-                  uint8_t spriteHeight, 
-                  uint8_t *sprite) {
+void Screen::drawSprite(uint8_t x, uint8_t y, uint8_t spriteHeight,
+                        uint8_t *sprite) {
 
   for (uint8_t i = 0; i < spriteHeight; i++) {
     uint8_t spriteLine = sprite[i];
-    
+
     int destY = (y + i) % Y_TILES; // Y where the line will be draw
-    
-    bool lineBool[8]; 
+
+    bool lineBool[8];
     for (uint8_t j = 0; j < 8; j++) {
       lineBool[j] = (spriteLine >> (7 - j)) & 0x01;
     }
-    
+
     for (uint8_t j = 0; j < 8; j++) {
       uint8_t destXforPixel = (x + j) % X_TILES; // X position of the j pixel
       uint16_t idxInBuffer = destXforPixel + (destY * X_TILES);
 
-      bool newPixelValue = (buffer[idxInBuffer]^lineBool[j]);
-     
+      bool newPixelValue = (buffer[idxInBuffer] ^ lineBool[j]);
+
       // Collision of pixels
       if (buffer[idxInBuffer] && !newPixelValue) {
         chip8->cpu.V[0xF] = 1;
@@ -79,8 +78,31 @@ void Screen::drawSprite(uint8_t x, uint8_t y,
   }
 }
 
+
+
 void Screen::Render() {
+  // Clears screen with black
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
-  SDL_RenderPresent(renderer);
-  SDL_Delay(16);
+
+  // Rect used to draw "pixels"
+  SDL_Rect rect = {0, 0, WIN_WIDTH / X_TILES, WIN_HEIGHT / Y_TILES};
+
+  // For each pixel
+  for (uint16_t pixel = 0; pixel < X_TILES * Y_TILES; pixel++) {
+    // Coordinates in 64x32 grid
+    int y = pixel / X_TILES;
+    int x = pixel % X_TILES;
+    
+    // Paint if true
+    if (buffer[pixel]) {
+      rect.x = x * WIN_WIDTH / X_TILES; 
+      rect.y = y * WIN_HEIGHT / Y_TILES; 
+      SDL_SetRenderDrawColor(renderer, 196, 196, 196, 255);
+      SDL_RenderFillRect(renderer, &rect);
+    }
+  }
+
+  SDL_RenderPresent(renderer);  
+  SDL_Delay(16); 
 }
