@@ -11,7 +11,7 @@ TEST_CASE("Fonts are initialized between 050-09F", "[CHIP-8]") {
 TEST_CASE("Sprite drawing results in correct behavior of VF", "[SCREEN]") {
   CHIP8 c;
   c.cpu.DecodeAndExecute(0x6F00); // Sets VF to 0
-  
+  c.screen.Clear();
   // 4x4 square
   uint8_t sprite[] = {0xF0, 0x90, 0x90, 0xF0};
 
