@@ -44,5 +44,15 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
       I = newIdx;
       break;
     }
+
+    // 0xDXYN Draw
+    case (0xD): {
+      V[0xF] = 0; // Reset status register
+      uint8_t x = V[opcode & 0x0F00]; // Sprite coordinates
+      uint8_t y = V[opcode & 0x00F0]; // ...
+      uint8_t height = opcode & 0x000F; // N of bytes (lines) of sprite
+      chip8->screen.drawSprite(x, y, height, &chip8->memory[I]);
+      break;
+    }
   }  
 }
