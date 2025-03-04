@@ -13,7 +13,7 @@ public:
 
   CHIP8();                 // Constructor
   
-  // ... 
+  void Run();              // Program loop 
 };
 
 #endif // CHIP8_HPP

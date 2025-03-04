@@ -1,4 +1,5 @@
 #include "chip8.hpp"
+#include <SDL2/SDL_events.h>
 #include <cstring>
 
 CHIP8::CHIP8() : cpu(this), screen(this) {
@@ -23,4 +24,17 @@ CHIP8::CHIP8() : cpu(this), screen(this) {
   };
 
   memcpy(&memory[0x50], fontData, sizeof(fontData));
+}
+
+void CHIP8::Run() {
+  screen.InitSDL();
+  while (true) {
+    screen.Render();
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+      if (event.type == SDL_QUIT) {
+        return;
+      }
+    }
+  }
 }
