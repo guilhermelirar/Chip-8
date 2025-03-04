@@ -44,3 +44,19 @@ TEST_CASE("Opcode 0xANNN loads index (I) register to NNN", "[CPU]") {
   c.cpu.DecodeAndExecute(0xABCD); // Index register points to BCD
   REQUIRE(c.cpu.I == 0xBCD);
 }
+
+// DXYN
+TEST_CASE("Opcode 0xDXYN draws sprite of N height, defined in I, at Vx, Vy",
+          "[CPU]") {
+
+  c.screen.Clear();
+
+  c.cpu.DecodeAndExecute(0x6000); // V[0] to 0
+  c.cpu.DecodeAndExecute(0xA050); // I points to "0" in system font definition
+  c.cpu.DecodeAndExecute(0xD005); // Draw height 5 sprite at 0, 0
+  
+  REQUIRE(c.cpu.V[0xF] == 0);     // No collision yet
+  c.cpu.DecodeAndExecute(0xD005); // Forcing collision
+  REQUIRE(c.cpu.V[0xF] == 1);
+  c.screen.Clear();
+}
