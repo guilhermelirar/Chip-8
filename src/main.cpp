@@ -1,14 +1,18 @@
 #include "chip8.hpp"
 #include <iostream>
 
-int main() {
-  std::cout << "Running on main\n";
-  
+int main(int argc, char **argv) {
+  if (argc != 2) {
+    std::cout << "Too few arguments to run CHIP-8 emulador\n"
+      << "   Usage: " << argv[0] << " [filename]\n";
+    return 0;
+  }
+
   CHIP8 chip8;
-  std::cout << "Program Counter at 0x" << std::hex << chip8.cpu.pc << std::endl;
- 
-  chip8.cpu.DecodeAndExecute(0x00E0);
-  chip8.Run();
+
+  if (chip8.ReadRom(argv[1])) {
+    chip8.Run();
+  }
 
   return 0;
 }

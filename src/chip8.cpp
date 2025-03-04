@@ -1,6 +1,8 @@
 #include "chip8.hpp"
 #include <SDL2/SDL_events.h>
 #include <cstring>
+#include <fstream>
+#include <iostream>
 
 CHIP8::CHIP8() : cpu(this), screen(this) {
   // Initializing font data
@@ -37,4 +39,34 @@ void CHIP8::Run() {
       }
     }
   }
+}
+
+bool CHIP8::ReadRom(const char *filename) {
+  std::fstream file;
+
+  file.open(filename, std::ios::in | std::ios::binary);
+
+  if (!file) {
+    std::cout << "Error while opening the file\n";
+    return false;
+  }
+
+  file.seekg(0, std::ios::end);
+  size_t fileSize = file.tellg();
+  file.seekg(0, std::ios::beg);
+
+  if (fileSize > (size_t)(MEMORY_SIZE - cpu.pc)) {
+    std::cout << "ROM is too large to fit on CHIP-8 memory (max file size is "
+                 "3584 bytes)\n";
+    return false;
+  }
+
+  file.read(reinterpret_cast<char *>(&memory[cpu.pc]), fileSize);
+  
+  if (!file) {
+    std::cout << "Error while reading the file\n";
+    return false;
+  }
+
+  return true;
 }

@@ -7,13 +7,15 @@
 
 class CHIP8 {
 public:
-  uint8_t memory[0x1000];  // 4kb memory
-  CPU cpu;                 // System CPU
+  static constexpr uint16_t MEMORY_SIZE = 0x1000;
+  uint8_t memory[MEMORY_SIZE];  // 4kb memory
+  CPU cpu;                      // System CPU
   Screen screen;
 
-  CHIP8();                 // Constructor
+  CHIP8();                      // Constructor
   
-  void Run();              // Program loop 
+  void Run();                   // Program loop
+  bool ReadRom(const char* filename);
 };
 
 #endif // CHIP8_HPP
