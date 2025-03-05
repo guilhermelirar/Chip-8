@@ -11,8 +11,9 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
     // Fixed opcodes
     case (0): {
       // 0x00E0 CLS Clear Screen
-      if (opcode == 0x00E0)
+      if (opcode == 0x00E0) {
         chip8->screen.Clear();
+      }
       break;
     }
     
@@ -25,7 +26,8 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
     // 0x6XNN LOAD X with NN
     case (0x6): {
       uint8_t reg = (0x0F00 & opcode) >> 8;
-      uint8_t value = (0x00FF & opcode); 
+      uint8_t value = (0x00FF & opcode);
+
       V[reg] = value;
       break;
     }
@@ -48,11 +50,25 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
     // 0xDXYN Draw
     case (0xD): {
       V[0xF] = 0; // Reset status register
-      uint8_t x = V[opcode & 0x0F00]; // Sprite coordinates
-      uint8_t y = V[opcode & 0x00F0]; // ...
+      uint8_t x = V[(opcode & 0x0F00) >> 8]; // Sprite coordinates
+      uint8_t y = V[(opcode & 0x00F0) >> 4]; // ...
       uint8_t height = opcode & 0x000F; // N of bytes (lines) of sprite
       chip8->screen.drawSprite(x, y, height, &chip8->memory[I]);
       break;
     }
   }  
+}
+
+
+uint8_t CPU::FetchByte() {
+  return chip8->memory[pc++];
+}
+
+void CPU::RunCycle() {
+  if (pc == CHIP8::MEMORY_SIZE) {
+    pc = 0x200;
+  }
+
+  uint16_t opcode = FetchByte() << 8 | FetchByte();
+  DecodeAndExecute(opcode);
 }
