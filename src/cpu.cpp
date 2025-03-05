@@ -14,6 +14,12 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
       if (opcode == 0x00E0) {
         chip8->screen.Clear();
       }
+
+      // RET return from subroutine
+      if (opcode == 0x00EE) {
+        // PC is top of stack, sp decremeted
+        pc = stack[--sp] + 1;
+      }
       break;
     }
     
@@ -23,11 +29,19 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
+    // 0x2NNN CALL a subroutine located in NNN
+    case (0x2): {
+      uint16_t subroutine = 0x0FFF & opcode;
+      stack[sp] = pc; // Push
+      sp++; 
+      pc = subroutine;
+      break;
+    }
+
     // 0x6XNN LOAD X with NN
     case (0x6): {
       uint8_t reg = (0x0F00 & opcode) >> 8;
       uint8_t value = (0x00FF & opcode);
-
       V[reg] = value;
       break;
     }
@@ -58,7 +72,6 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
     }
   }  
 }
-
 
 uint8_t CPU::FetchByte() {
   return chip8->memory[pc++];
