@@ -60,3 +60,28 @@ TEST_CASE("Opcode 0xDXYN draws sprite of N height, defined in I, at Vx, Vy",
   REQUIRE(c.cpu.V[0xF] == 1);
   c.screen.Clear();
 }
+
+// 00EE and 2NNN
+TEST_CASE("Opcode 2NNN jumps do subroutine (CALL), 00EE returns (RET)", "[CPU]") {
+  // Subroutine
+  uint16_t firstPC = c.cpu.pc;
+  c.cpu.DecodeAndExecute(0x2ABC); // CALL
+  REQUIRE(c.cpu.sp == 1); // Stack now has 1 value
+  REQUIRE(c.cpu.stack[0] == firstPC); // Previous PC was stored in Stack
+  REQUIRE(c.cpu.pc == 0xABC); // PC is now subroutine address
+
+  // Nesting
+  uint16_t secondPC = c.cpu.pc;
+  c.cpu.DecodeAndExecute(0x2DEF);
+  REQUIRE(c.cpu.sp == 2); // Stack now has 2 values
+  REQUIRE(c.cpu.stack[1] == secondPC); // Previous PC was stored in Stack
+  REQUIRE(c.cpu.pc == 0xDEF); // PC is now subroutine address
+  
+  // Returning
+  c.cpu.DecodeAndExecute(0x00EE);
+  REQUIRE(c.cpu.sp == 1); // Stack now has 1 values
+  REQUIRE(c.cpu.pc == secondPC+1);
+  c.cpu.DecodeAndExecute(0x00EE);
+  REQUIRE(c.cpu.sp == 0); // Stack now has 0 values
+  REQUIRE(c.cpu.pc == firstPC+1);
+}
