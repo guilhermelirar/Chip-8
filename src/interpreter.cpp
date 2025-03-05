@@ -1,11 +1,11 @@
-#include "cpu.hpp"
+#include "interpreter.hpp"
 #include "chip8.hpp"
 
-CPU::CPU(CHIP8* chip8): chip8(chip8) {
+Interpreter::Interpreter(CHIP8* chip8): chip8(chip8) {
   pc = 0x200;
 }
 
-void CPU::DecodeAndExecute(uint16_t opcode) {
+void Interpreter::DecodeAndExecute(uint16_t opcode) {
   // Variable opcodes
   switch (opcode >> 12) {
     // Fixed opcodes
@@ -73,11 +73,11 @@ void CPU::DecodeAndExecute(uint16_t opcode) {
   }  
 }
 
-uint8_t CPU::FetchByte() {
+uint8_t Interpreter::FetchByte() {
   return chip8->memory[pc++];
 }
 
-void CPU::RunCycle() {
+void Interpreter::RunCycle() {
   if (pc == CHIP8::MEMORY_SIZE) {
     pc = 0x200;
   }

@@ -71,7 +71,7 @@ void Screen::drawSprite(uint8_t x, uint8_t y, uint8_t spriteHeight,
 
       // Collision of pixels
       if (buffer[idxInBuffer] && !newPixelValue) {
-        chip8->cpu.V[0xF] = 1;
+        chip8->interpreter.V[0xF] = 1;
       }
       buffer[idxInBuffer] = newPixelValue;
     }

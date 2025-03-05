@@ -1,11 +1,11 @@
-#ifndef CPU_HPP
-#define CPU_HPP
+#ifndef Interpreter_HPP
+#define Interpreter_HPP
 
 #include <cstdint>
 
 class CHIP8;
 
-class CPU {
+class Interpreter {
 public:
   uint8_t V[16];      // General purpose registers
   uint16_t I;         // Index register
@@ -20,11 +20,11 @@ public:
 
   CHIP8* chip8;       // CHIP-8 System
   
-  CPU(CHIP8* chip8);  // Constructor
+  Interpreter(CHIP8* chip8);  // Constructor
  
   void DecodeAndExecute(uint16_t opcode);
   uint8_t FetchByte();
   void RunCycle();
 };
 
-#endif // CPU_HPP
+#endif // Interpreter_HPP
