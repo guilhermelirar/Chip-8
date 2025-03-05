@@ -32,6 +32,8 @@ void CHIP8::Run() {
   screen.InitSDL();
   while (true) {
     screen.Render();
+    cpu.RunCycle();
+
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
       if (event.type == SDL_QUIT) {
