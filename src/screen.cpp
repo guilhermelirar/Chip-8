@@ -79,10 +79,9 @@ void Screen::drawSprite(uint8_t x, uint8_t y, uint8_t spriteHeight,
 }
 
 
-
 void Screen::Render() {
   // Clears screen with black
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_SetRenderDrawColor(renderer, 15, 15, 40, 255);
   SDL_RenderClear(renderer);
 
   // Rect used to draw "pixels"
@@ -98,7 +97,7 @@ void Screen::Render() {
     if (buffer[pixel]) {
       rect.x = x * WIN_WIDTH / X_TILES; 
       rect.y = y * WIN_HEIGHT / Y_TILES; 
-      SDL_SetRenderDrawColor(renderer, 196, 196, 196, 255);
+      SDL_SetRenderDrawColor(renderer, 0, 255, 102, 255);
       SDL_RenderFillRect(renderer, &rect);
     }
   }
