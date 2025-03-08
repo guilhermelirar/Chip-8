@@ -80,10 +80,10 @@ TEST_CASE("Opcode 2NNN jumps do subroutine (CALL), 00EE returns (RET)", "[Interp
   // Returning
   c.interpreter.DecodeAndExecute(0x00EE);
   REQUIRE(c.interpreter.sp == 1); // Stack now has 1 values
-  REQUIRE(c.interpreter.pc == secondPC+1);
+  REQUIRE(c.interpreter.pc == secondPC+2);
   c.interpreter.DecodeAndExecute(0x00EE);
   REQUIRE(c.interpreter.sp == 0); // Stack now has 0 values
-  REQUIRE(c.interpreter.pc == firstPC+1);
+  REQUIRE(c.interpreter.pc == firstPC+2);
 }
 
 // 3XNN
