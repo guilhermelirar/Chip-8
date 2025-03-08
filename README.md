@@ -9,7 +9,7 @@ both can be found on [Timendus' chip8-test-suite](https://github.com/Timendus/ch
 ## Features
 
 - **ROM loading from command line**: chip-8 programs, with the appropriate max. size, can be loaded from the command line.
-- **Fetch-Decode-Execute:** as of march 4 2025, 6/35 opcodes are implemented.
+- **Fetch-Decode-Execute:** as of march 7, 2025, 10/35 opcodes are implemented.
   <details>
     <summary>See list of supported opcodes</summary>
 
@@ -17,7 +17,8 @@ both can be found on [Timendus' chip8-test-suite](https://github.com/Timendus/ch
     - `00EE` **RET**: Return from subroutine.
     - `1NNN` **JP *addr***: Jump to address.
     - `2NNN` **CALL *addr***: Call a subroutine at NNN.
-    - `3XNN` **SE, Vx, NN**: Skip next instruction if Vx is equal NN.
+    - `3XNN` **SE, Vx, byte**: Skip next instruction if Vx is equal to byte.
+    - `3XNN` **SNE, Vx, byte**: Skip next instruction if Vx is not equal to byte.
     - `6XNN` **LD Vx *byte***: Loads register Vx with NN.
     - `7XNN` **ADD Vx, *byte***: Add NN to register Vx.
     - `ANNN` **LD I**: Loads Index register with NNN.

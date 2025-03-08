@@ -46,6 +46,14 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
+    // 0x4XNN SNE Vx, NN. Skip if Vx not equal NN
+    case (0x4): {
+      uint8_t regIdx = (opcode & 0x0F00) >> 8;
+      bool flag = (opcode & 0x00FF) != V[regIdx];
+      if (flag) pc += 2;
+      break;
+    }
+
     // 0x6XNN LOAD X with NN
     case (0x6): {
       uint8_t reg = (0x0F00 & opcode) >> 8;
