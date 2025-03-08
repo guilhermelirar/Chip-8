@@ -17,6 +17,7 @@ both can be found on [Timendus' chip8-test-suite](https://github.com/Timendus/ch
     - `00EE` **RET**: Return from subroutine.
     - `1NNN` **JP *addr***: Jump to address.
     - `2NNN` **CALL *addr***: Call a subroutine at NNN.
+    - `3XNN` **SE, Vx, NN**: Skip next instruction if Vx is equal NN.
     - `6XNN` **LD Vx *byte***: Loads register Vx with NN.
     - `7XNN` **ADD Vx, *byte***: Add NN to register Vx.
     - `ANNN` **LD I**: Loads Index register with NNN.
