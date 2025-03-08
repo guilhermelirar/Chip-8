@@ -54,6 +54,15 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
+    // 0x5XY0 SE Vx, Vy. Skip if Vx equal Vx
+    case (0x5): {
+      uint8_t regX = (opcode & 0x0F00) >> 8;
+      uint8_t regY = (opcode & 0x00F0) >> 4;
+      bool flag = V[regX] == V[regY];
+      if (flag) pc += 2;
+      break;
+    }
+
     // 0x6XNN LOAD X with NN
     case (0x6): {
       uint8_t reg = (0x0F00 & opcode) >> 8;
