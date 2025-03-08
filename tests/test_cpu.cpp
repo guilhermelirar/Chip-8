@@ -87,12 +87,26 @@ TEST_CASE("Opcode 2NNN jumps do subroutine (CALL), 00EE returns (RET)", "[Interp
 }
 
 // 3XNN
-TEST_CASE("Opcode 0x3XNN skips next opcode if Vx is equal NN (SE Vx NN)", "[Interpreter]") {
+TEST_CASE("Opcode 0x3XNN skips next opcode if Vx is equal to byte (SE Vx byte)",
+          "[Interpreter]") {
   c.interpreter.DecodeAndExecute(0x6011);
   uint16_t pc1 = c.interpreter.pc;
   c.interpreter.DecodeAndExecute(0x3026); // Skips if V[0] == 26
-  REQUIRE(c.interpreter.pc == pc1); // PC is not incremented
+  REQUIRE(c.interpreter.pc == pc1);       // PC is not incremented
   c.interpreter.DecodeAndExecute(0x6126);
-  c.interpreter.DecodeAndExecute(0x3126);  // V[1] is 26, so skip is done
-  REQUIRE(c.interpreter.pc == pc1 + 2); // Skip
+  c.interpreter.DecodeAndExecute(0x3126); // V[1] == 26, so skip is done
+  REQUIRE(c.interpreter.pc == pc1 + 2);   // Skip
+}
+
+// 4XNN
+TEST_CASE(
+    "Opcode 0x3XNN skips next opcode if Vx is not equal to byte (SNE Vx byte)",
+    "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x6011);
+  uint16_t pc1 = c.interpreter.pc;
+  c.interpreter.DecodeAndExecute(0x4126); // V[1] == 26, so skip is not done
+  REQUIRE(c.interpreter.pc == pc1);       // PC is not incremented
+  c.interpreter.DecodeAndExecute(0x6126);
+  c.interpreter.DecodeAndExecute(0x4026); // Skips if V[0] != 26
+  REQUIRE(c.interpreter.pc == pc1 + 2);   // Skip
 }
