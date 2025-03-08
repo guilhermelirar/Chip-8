@@ -18,7 +18,7 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       // RET return from subroutine
       if (opcode == 0x00EE) {
         // PC is top of stack, sp decremeted
-        pc = stack[--sp] + 1;
+        pc = stack[--sp] + 2;
       }
       break;
     }
