@@ -124,3 +124,11 @@ TEST_CASE(
   c.interpreter.DecodeAndExecute(0x5010); // Skip is done
   REQUIRE(c.interpreter.pc == pc1 + 2);
 }
+
+TEST_CASE(
+    "Opcode 0x8XY0 Stores the value of register Vy in register Vx. (LD Vx Vy)",
+    "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x60AA); // V0 <- AA
+  c.interpreter.DecodeAndExecute(0x8100); // V1 <- V0
+  REQUIRE(c.interpreter.V[0] == 0xAA);
+}
