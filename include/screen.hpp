@@ -2,7 +2,7 @@
 #define SCREEN_HPP
 
 #include <cstdint>
-#include <SDL2/SDL_image.h>
+#include <SDL2/SDL.h>
 
 class CHIP8;
 

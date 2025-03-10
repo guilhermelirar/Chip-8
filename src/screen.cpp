@@ -13,12 +13,13 @@ Screen::Screen(CHIP8 *chip8)
     : window(nullptr), renderer(nullptr), chip8(chip8) {}
 
 Screen::~Screen() {
-  if (renderer != nullptr) {
+  if (renderer) {
     SDL_DestroyRenderer(renderer);
+    renderer = nullptr;
   }
-
-  if (window != nullptr) {
+  if (window) {
     SDL_DestroyWindow(window);
+    window = nullptr;
   }
 
   SDL_Quit();
@@ -43,7 +44,7 @@ void Screen::InitSDL() {
     exit(EXIT_FAILURE);
   }
 
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
   if (renderer == nullptr) {
     std::cerr << "Error creating renderer: " << SDL_GetError() << std::endl;
     exit(EXIT_FAILURE);
