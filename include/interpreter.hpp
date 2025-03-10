@@ -25,6 +25,8 @@ public:
   void DecodeAndExecute(uint16_t opcode);
   uint8_t FetchByte();
   void RunCycle();
+
+  void ExecuteLogicArithmetic(uint16_t opcode);
 };
 
 #endif // Interpreter_HPP

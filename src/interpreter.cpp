@@ -54,7 +54,7 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
-    // 0x5XY0 SE Vx, Vy. Skip if Vx equal Vx
+    // 0x5XY0 SE Vx, Vy. Skip if Vx equal Vy
     case (0x5): {
       uint8_t regX = (opcode & 0x0F00) >> 8;
       uint8_t regY = (opcode & 0x00F0) >> 4;
@@ -79,6 +79,13 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
+
+    // 0x8.... Logic arithmetic
+    case (0x8): {
+      ExecuteLogicArithmetic(opcode);
+      break;
+    }
+
     // 0xANNN LOAD I, addr
     case (0xA): {
       uint16_t newIdx = 0x0FFF & opcode;
@@ -96,6 +103,20 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
   }  
+}
+
+void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
+  uint8_t mode = 0xF & opcode;
+  uint8_t x = (opcode & 0x0F00) >> 8;
+  uint8_t y = (opcode & 0x00F0) >> 4;
+
+  switch (mode) {
+    // LD Vx, Vy
+    case (0): {
+      V[x] = V[y];
+      break;
+    }
+  }
 }
 
 uint8_t Interpreter::FetchByte() {
