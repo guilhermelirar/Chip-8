@@ -128,6 +128,13 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
       V[x] &= V[y];
       break;
     }
+
+
+    // AND Vx, Vy
+    case (3): {
+      V[x] ^= V[y];
+      break;
+    }
   }
 }
 
