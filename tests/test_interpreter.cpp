@@ -150,3 +150,12 @@ TEST_CASE(
   c.interpreter.DecodeAndExecute(0x8012); // V1 <- F0 & 0F = 0
   REQUIRE(c.interpreter.V[0] == 0);
 }
+
+TEST_CASE(
+    "Opcode 0x8XY3 Sets Vx = Vx ^ Vy (XOR Vx, Vy)",
+    "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x60FF); // V0 <- FF
+  c.interpreter.DecodeAndExecute(0x610F); // V1 <- 0F
+  c.interpreter.DecodeAndExecute(0x8013); // V1 <- FF ^ 0F = F0
+  REQUIRE(c.interpreter.V[0] == 0xF0);
+}
