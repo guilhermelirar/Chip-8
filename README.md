@@ -9,7 +9,7 @@ both can be found on [Timendus' chip8-test-suite](https://github.com/Timendus/ch
 ## Features
 
 - **ROM loading from command line**: chip-8 programs, with the appropriate max. size, can be loaded from the command line.
-- **Fetch-Decode-Execute:** as of march 7, 2025, 16/35 opcodes are implemented.
+- **Fetch-Decode-Execute:** as of march 7, 2025, 17/35 opcodes are implemented.
   <details>
     <summary>See list of supported opcodes</summary>
 
@@ -27,6 +27,7 @@ both can be found on [Timendus' chip8-test-suite](https://github.com/Timendus/ch
     - `8XY2` **AND Vx, Vy**: Loads Vx as Vx AND Vy (bitwise).
     - `8XY3` **XOR Vx, Vy**: Loads Vx as Vx XOR Vy (bitwise).
     - `8XY4` **ADD Vx, Vy**: Adds Vy to Vx and sets VF as 1 if overflow.
+    - `8XY5` **SUB Vx, Vy**: Subtracts Vy from Vx and sets VF as not borrow.
     - `ANNN` **LD I**: Loads Index register with NNN.
     - `DXYN` **DRW Vx, Vy, N**: Draws a N height sprite located at the memory
        position pointed by I register, in position (Vx, Vy).

@@ -142,6 +142,14 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
       V[x] = res & 0xFF;              // Store the lower 8 bits of the result
       break;
     }
+
+    // SUB Vx, Vy
+    case (5): {
+      uint8_t res = V[x] - V[y];
+      V[0xF] = (V[x] > V[y]) ? 1 : 0;  // Set VF flag for not borrow 
+      V[x] = res;
+      break;
+    }
   }
 }
 
