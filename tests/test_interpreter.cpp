@@ -159,3 +159,19 @@ TEST_CASE(
   c.interpreter.DecodeAndExecute(0x8013); // V1 <- FF ^ 0F = F0
   REQUIRE(c.interpreter.V[0] == 0xF0);
 }
+
+TEST_CASE(
+    "Opcode 0x8XY4 adds Vy to Vx (ADD Vx, Vy)",
+    "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x6F00); // VF <- 0
+  c.interpreter.DecodeAndExecute(0x60F0); // V0 <- F0
+  c.interpreter.DecodeAndExecute(0x610F); // V1 <- 0F
+  c.interpreter.DecodeAndExecute(0x8014); // V1 <- F0 + 0F = FF
+  REQUIRE(c.interpreter.V[0] == 0xFF);
+  REQUIRE(c.interpreter.V[0xF] == 0); // No overflow
+
+  c.interpreter.DecodeAndExecute(0x6101); // V1 <- 01
+  c.interpreter.DecodeAndExecute(0x8014); // V1 <- FF + 01 = (1)00
+  REQUIRE(c.interpreter.V[0] == 0);
+  REQUIRE(c.interpreter.V[0xF] == 1); // Overflow
+}
