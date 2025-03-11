@@ -141,3 +141,12 @@ TEST_CASE(
   c.interpreter.DecodeAndExecute(0x8011); // V1 <- F0 | 0F = FF
   REQUIRE(c.interpreter.V[0] == 0xFF);
 }
+
+TEST_CASE(
+    "Opcode 0x8XY2 Sets Vx = Vx & Vy (AND Vx, Vy)",
+    "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x60F0); // V0 <- F0
+  c.interpreter.DecodeAndExecute(0x610F); // V1 <- 0F
+  c.interpreter.DecodeAndExecute(0x8012); // V1 <- F0 & 0F = 0
+  REQUIRE(c.interpreter.V[0] == 0);
+}
