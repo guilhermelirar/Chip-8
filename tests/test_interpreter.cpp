@@ -126,9 +126,18 @@ TEST_CASE(
 }
 
 TEST_CASE(
-    "Opcode 0x8XY0 Stores the value of register Vy in register Vx. (LD Vx Vy)",
+    "Opcode 0x8XY0 Stores the value of register Vy in register Vx. (LD Vx, Vy)",
     "[Interpreter]") {
   c.interpreter.DecodeAndExecute(0x60AA); // V0 <- AA
   c.interpreter.DecodeAndExecute(0x8100); // V1 <- V0
   REQUIRE(c.interpreter.V[0] == 0xAA);
+}
+
+TEST_CASE(
+    "Opcode 0x8XY1 Sets Vx = Vx OR Vy (OR Vx, Vy)",
+    "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x60F0); // V0 <- F0
+  c.interpreter.DecodeAndExecute(0x610F); // V1 <- 0F
+  c.interpreter.DecodeAndExecute(0x8011); // V1 <- F0 | 0F = FF
+  REQUIRE(c.interpreter.V[0] == 0xFF);
 }
