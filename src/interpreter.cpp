@@ -129,10 +129,17 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
       break;
     }
 
-
     // AND Vx, Vy
     case (3): {
       V[x] ^= V[y];
+      break;
+    }
+
+    // ADD Vx, Vy
+    case (4): {
+      uint16_t res = V[x] + V[y];
+      V[0xF] = (res > 0xFF) ? 1 : 0;  // Set VF flag for overflow
+      V[x] = res & 0xFF;              // Store the lower 8 bits of the result
       break;
     }
   }
