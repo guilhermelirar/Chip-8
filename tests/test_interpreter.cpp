@@ -175,3 +175,18 @@ TEST_CASE(
   REQUIRE(c.interpreter.V[0] == 0);
   REQUIRE(c.interpreter.V[0xF] == 1); // Overflow
 }
+
+TEST_CASE(
+    "Opcode 0x8XY5 Set Vx = Vx - Vy, set VF = NOT borrow (SUB Vx, Vy)",
+    "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x6F00); // VF <- 0
+  c.interpreter.DecodeAndExecute(0x60FF); // V0 <- FF
+  c.interpreter.DecodeAndExecute(0x610F); // V1 <- 0F
+  c.interpreter.DecodeAndExecute(0x8015); // V1 <- FF - 0F = F0
+  REQUIRE(c.interpreter.V[0] == 0xF0);
+  REQUIRE(c.interpreter.V[0xF] == 1); // not borrow
+  
+  c.interpreter.DecodeAndExecute(0x61FF); // V1 <- FF
+  c.interpreter.DecodeAndExecute(0x8015); // V1 <- 0F - FF
+  REQUIRE(c.interpreter.V[0xF] == 0); // borrow
+}
