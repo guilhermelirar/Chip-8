@@ -27,6 +27,7 @@ public:
   void RunCycle();
 
   void ExecuteLogicArithmetic(uint16_t opcode);
+  void ExecuteFxInstruction(uint8_t x, uint8_t mode);
 };
 
 #endif // Interpreter_HPP

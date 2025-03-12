@@ -102,6 +102,12 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       chip8->screen.drawSprite(x, y, height, &chip8->memory[I]);
       break;
     }
+
+    case (0xF): {
+      uint8_t x = (0x0F00 & opcode) >> 8;
+      uint8_t mode = 0xFF & opcode;
+      ExecuteFxInstruction(x, mode);
+    }
   }  
 }
 
@@ -186,4 +192,12 @@ void Interpreter::RunCycle() {
 
   uint16_t opcode = FetchByte() << 8 | FetchByte();
   DecodeAndExecute(opcode);
+}
+
+void Interpreter::ExecuteFxInstruction(uint8_t x, uint8_t mode) {
+  switch (mode) {
+    case (0x65): {
+      memcpy(V, &chip8->memory[I], (x + 1) * sizeof(uint8_t));
+    }
+  }
 }
