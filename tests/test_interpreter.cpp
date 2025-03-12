@@ -190,3 +190,18 @@ TEST_CASE(
   c.interpreter.DecodeAndExecute(0x8015); // V1 <- 0F - FF
   REQUIRE(c.interpreter.V[0xF] == 0); // borrow
 }
+
+TEST_CASE(
+    "Opcode 0x8XY6 Set Vx = Vx SHR 1",
+    "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x6F00); // VF <- 0
+  c.interpreter.DecodeAndExecute(0x6000); // V0 <- 00
+  c.interpreter.DecodeAndExecute(0x8016); // Shift right
+  REQUIRE(c.interpreter.V[0] == 0);
+  REQUIRE(c.interpreter.V[0xF] == 0); // LSB = 0 
+  
+  c.interpreter.DecodeAndExecute(0x6003); // V0 <- 3
+  c.interpreter.DecodeAndExecute(0x8016); // SHR
+  REQUIRE(c.interpreter.V[0] == 1);
+  REQUIRE(c.interpreter.V[0xF] == 1); // LSB = 1
+}
