@@ -150,6 +150,13 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
       V[x] = res;
       break;
     }
+
+    // SHR Vx, {, Vy}
+    case (6): {
+      V[0xF] = V[x] & 1;  // Set VF flag for LSB
+      V[x] >>= 1; // Shift right
+      break;
+    }
   }
 }
 
