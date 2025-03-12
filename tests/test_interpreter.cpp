@@ -227,3 +227,17 @@ TEST_CASE("Opcode 0x8XYE Set Vx = Vx SHL Vx", "[Interpreter]") {
   REQUIRE(c.interpreter.V[0] == 2);
   REQUIRE(c.interpreter.V[0xF] == 1); // LSB == 1
 }
+
+TEST_CASE("Opcode 0xFX65 Set Vx = Vx SHL Vx", "[Interpreter]") {
+  uint8_t v0 = 15, v1 = 26, v2 = 31, v3 = 99; // Arbitrary numbers
+  c.memory[c.interpreter.I] = v0;
+  c.memory[c.interpreter.I + 1] = v1;
+  c.memory[c.interpreter.I + 2] = v2;
+  c.memory[c.interpreter.I + 3] = v3;
+
+  c.interpreter.DecodeAndExecute(0xF365); // Load those values
+  REQUIRE(c.interpreter.V[0] == v0);
+  REQUIRE(c.interpreter.V[1] == v1);
+  REQUIRE(c.interpreter.V[2] == v2);
+  REQUIRE(c.interpreter.V[3] == v3);
+}
