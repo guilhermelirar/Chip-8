@@ -151,7 +151,7 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
       break;
     }
 
-    // SHR Vx, {, Vy}
+    // SHR Vx {, Vy}
     case (6): {
       V[0xF] = V[x] & 1;  // Set VF flag for LSB
       V[x] >>= 1; // Shift right
@@ -163,6 +163,13 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
       uint8_t res = V[y] - V[x];
       V[0xF] = (V[y] > V[x]) ? 1 : 0;  // Set VF flag for not borrow 
       V[x] = res;
+      break;
+    }
+
+    // SHL Vx {, Vy}
+    case (0xE): {
+      V[0xF] = (V[x] & 0x80) >> 7;  // Set VF flag for MSB
+      V[x] <<= 1; // Shift left
       break;
     }
   }
