@@ -205,3 +205,12 @@ TEST_CASE(
   REQUIRE(c.interpreter.V[0] == 1);
   REQUIRE(c.interpreter.V[0xF] == 1); // LSB = 1
 }
+
+TEST_CASE("Opcode 0x8XY7 Set Vx = Vy - Vx (Sub N)", "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0x6F00); // VF <- 0
+  c.interpreter.DecodeAndExecute(0x600F); // V0 <- 0F
+  c.interpreter.DecodeAndExecute(0x61FF); // V1 <- FF
+  c.interpreter.DecodeAndExecute(0x8017); // SUBN
+  REQUIRE(c.interpreter.V[0] == 0xF0); // FF - 0F
+  REQUIRE(c.interpreter.V[0xF] == 1); // not borrow 
+}
