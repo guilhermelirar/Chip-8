@@ -1,6 +1,5 @@
 #include "interpreter.hpp"
 #include "chip8.hpp"
-#include <iostream>
 
 Interpreter::Interpreter(CHIP8* chip8): chip8(chip8) {
   pc = 0x200;
@@ -199,6 +198,12 @@ void Interpreter::ExecuteFxInstruction(uint8_t x, uint8_t mode) {
   switch (mode) {
     case (0x65): {
       memcpy(V, &chip8->memory[I], (x + 1) * sizeof(uint8_t));
+      break;
+    }
+
+    case (0x1E): {
+      I = 0xFFF & (I + V[x]);
+      break;
     }
   }
 }
