@@ -1,5 +1,6 @@
 #include "interpreter.hpp"
 #include "chip8.hpp"
+#include <iostream>
 
 Interpreter::Interpreter(CHIP8* chip8): chip8(chip8) {
   pc = 0x200;
@@ -18,7 +19,7 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       // RET return from subroutine
       if (opcode == 0x00EE) {
         // PC is top of stack, sp decremeted
-        pc = stack[--sp] + 2;
+        pc = stack[--sp] + 0;
       }
       break;
     }
