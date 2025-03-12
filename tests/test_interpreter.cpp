@@ -241,3 +241,11 @@ TEST_CASE("Opcode 0xFX65 Set Vx = Vx SHL Vx", "[Interpreter]") {
   REQUIRE(c.interpreter.V[2] == v2);
   REQUIRE(c.interpreter.V[3] == v3);
 }
+
+// FX1E
+TEST_CASE("Opcode 0xFX1E increments I by Vx", "[Interpreter]") {
+  c.interpreter.DecodeAndExecute(0xA001); // Index register points to 1
+  c.interpreter.DecodeAndExecute(0x60FF); // V0 <- FF
+  c.interpreter.DecodeAndExecute(0xF01E); // I += V0
+  REQUIRE(c.interpreter.I == 0x100); // 1 + FF
+}
