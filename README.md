@@ -9,7 +9,7 @@ both can be found on [Timendus' chip8-test-suite](https://github.com/Timendus/ch
 ## Features
 
 - **ROM loading from command line**: chip-8 programs, with the appropriate max. size, can be loaded from the command line.
-- **Fetch-Decode-Execute:** as of march 11, 2025, 18/35 opcodes are implemented.
+- **Fetch-Decode-Execute:** as of march 12, 2025, 19/35 opcodes are implemented.
   <details>
     <summary>See list of supported opcodes</summary>
 
