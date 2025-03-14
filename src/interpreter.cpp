@@ -1,7 +1,7 @@
 #include "interpreter.hpp"
 #include "chip8.hpp"
 
-Interpreter::Interpreter(CHIP8* chip8): chip8(chip8) {
+Interpreter::Interpreter(CHIP8* chip8): chip8(chip8), gen(rd()) {
   pc = 0x200;
 }
 
@@ -105,6 +105,16 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
     case (0xB): {
       uint16_t offset = 0x0FFF & opcode;
       pc = (V[0] + offset) % 0x1000;
+      break;
+    }
+
+    // 0xCXNN RND VX, NN
+    case (0xC): {
+      uint8_t x = (0x0F00 & opcode) >> 8;
+      std::uniform_int_distribution<uint8_t> dist(0, 255);
+      uint8_t rnd = dist(gen);
+      uint8_t newVx = rnd & (0xFF & opcode);
+      V[x] = newVx;
       break;
     }
 
