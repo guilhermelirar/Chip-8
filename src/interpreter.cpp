@@ -79,7 +79,6 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
-
     // 0x8.... Logic arithmetic
     case (0x8): {
       ExecuteLogicArithmetic(opcode);
@@ -99,6 +98,13 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
     case (0xA): {
       uint16_t newIdx = 0x0FFF & opcode;
       I = newIdx;
+      break;
+    }
+
+    // 0xBNNN JP V0, addr
+    case (0xB): {
+      uint16_t offset = 0x0FFF & opcode;
+      pc = (V[0] + offset) % 0x1000;
       break;
     }
 
