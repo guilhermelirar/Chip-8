@@ -210,5 +210,15 @@ void Interpreter::ExecuteFxInstruction(uint8_t x, uint8_t mode) {
       I = 0xFFF & (I + V[x]);
       break;
     }
+
+    case (0x33): {
+      uint8_t hundreds = V[x] / 100;
+      uint8_t dozens = (V[x] % 100) / 10;
+      uint8_t ones = V[x] % 10;
+      chip8->memory[I] = hundreds;
+      chip8->memory[I+1] = dozens;
+      chip8->memory[I+2] = ones;
+      break;
+    }
   }
 }

@@ -1,15 +1,13 @@
 # CHIP-8 Emulator in C++
 
 This project is a [Chip-8](https://en.wikipedia.org/wiki/CHIP-8) emulator/interpreter implemented in C++ using the SDL2 library. 
-It is a work in progress, not all opcodes have been implemented yet, for now just enough to run the **IBM Logo** and **CHIP-8 Logo** test ROMs,
-both can be found on [Timendus' chip8-test-suite](https://github.com/Timendus/chip8-test-suite). 
 
 ---
 
 ## Features
 
 - **ROM loading from command line**: chip-8 programs, with the appropriate max. size, can be loaded from the command line.
-- **Fetch-Decode-Execute:** as of march 13, 2025, 23/35 opcodes are implemented.
+- **Fetch-Decode-Execute:** as of march 13, 2025, 24/35 opcodes are implemented.
   <details>
     <summary>See list of implemented CHIP-8 instructions</summary>
 
@@ -34,9 +32,10 @@ both can be found on [Timendus' chip8-test-suite](https://github.com/Timendus/ch
     - `ANNN` **LD I**: Loads Index register with NNN.
     - `DXYN` **DRW Vx, Vy, N**: Draws a N height sprite located at the memory
        position pointed by I register, in position (Vx, Vy).
-    - `Fx1E` **ADD I, Vx**: Values of I and Vx are added and stored in I.
-    - `Fx55` **LD Vx, \[I]**: reads X + 1 values from registers V0 to VX, into memory starting at location I.
-    - `Fx65` **LD Vx, \[I]**: reads X + 1 values from memory, starting at location I into registers V0 through Vx.
+    - `FX1E` **ADD I, Vx**: Values of I and Vx are added and stored in I.
+    - `FX33` **ADD I, Vx**: Stores the BCD value of Vx in memory, starting from location I. 
+    - `FX55` **LD Vx, \[I]**: reads X + 1 values from registers V0 to VX, into memory starting at location I.
+    - `FX65` **LD Vx, \[I]**: reads X + 1 values from memory, starting at location I into registers V0 through Vx.
 
   </details>
 
