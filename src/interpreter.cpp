@@ -200,6 +200,11 @@ void Interpreter::ExecuteFxInstruction(uint8_t x, uint8_t mode) {
       memcpy(V, &chip8->memory[I], (x + 1) * sizeof(uint8_t));
       break;
     }
+    
+    case (0x55): {
+      memcpy(&chip8->memory[I], V, (x + 1) * sizeof(uint8_t));
+      break;
+    }
 
     case (0x1E): {
       I = 0xFFF & (I + V[x]);
