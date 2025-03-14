@@ -7,7 +7,7 @@ This project is a [Chip-8](https://en.wikipedia.org/wiki/CHIP-8) emulator/interp
 ## Features
 
 - **ROM loading from command line**: chip-8 programs, with the appropriate max. size, can be loaded from the command line.
-- **Fetch-Decode-Execute:** as of march 13, 2025, 24/35 opcodes are implemented.
+- **Fetch-Decode-Execute:** as of march 14, 2025, 25/35 opcodes are implemented.
   <details>
     <summary>See list of implemented CHIP-8 instructions</summary>
 
@@ -29,6 +29,7 @@ This project is a [Chip-8](https://en.wikipedia.org/wiki/CHIP-8) emulator/interp
     - `8XY6` **SHR Vx {, Vy}**: Shifts Vx 1 bit right and sets VF as previous Vx least significant bit.
     - `8XY7` **SUBN Vx, Vy**: Sets Vx as Vy - Vx and VF as not borrow.
     - `8XYE` **SHL Vx {, Vy}**: Shifts Vx 1 bit left and sets VF as previous Vx most significant bit.
+    - `9XY0` **SNE Vx, Vy**: Skips instruction if Vx is not equal to Vy.
     - `ANNN` **LD I**: Loads Index register with NNN.
     - `DXYN` **DRW Vx, Vy, N**: Draws a N height sprite located at the memory
        position pointed by I register, in position (Vx, Vy).

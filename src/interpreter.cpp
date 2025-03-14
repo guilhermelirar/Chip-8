@@ -86,6 +86,15 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
+    // 0x9XY0 SNE Vx, Vy
+    case (0x9): {
+      uint8_t Vx = V[(opcode & 0xF00) >> 8];
+      uint8_t Vy = V[(opcode & 0xF0) >> 4];
+      if (Vx != Vy)
+        pc += 2;
+      break;
+    }
+
     // 0xANNN LOAD I, addr
     case (0xA): {
       uint16_t newIdx = 0x0FFF & opcode;
