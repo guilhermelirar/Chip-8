@@ -274,3 +274,16 @@ TEST_CASE("Opcode 0xFX33 Stores the BCD representation of Vx starting from I "
   REQUIRE(c.memory[c.interpreter.I + 1] == 2);
   REQUIRE(c.memory[c.interpreter.I + 2] == 3);
 }
+
+TEST_CASE("Opcode 0x9XY0 Skips next instruction if Vx != Vy", "[Interpreter]") {
+  c.interpreter.V[0] = 123;
+  c.interpreter.V[1] = 123;
+  uint16_t pc = c.interpreter.pc;
+
+  c.interpreter.DecodeAndExecute(0x9010);
+  REQUIRE(c.interpreter.pc == pc); // Equal then don't skip
+
+  c.interpreter.V[1] = 124;
+  c.interpreter.DecodeAndExecute(0x9010);
+  REQUIRE(c.interpreter.pc == pc + 2); // Different then don't skip
+}
