@@ -228,7 +228,8 @@ TEST_CASE("Opcode 0x8XYE Set Vx = Vx SHL Vx", "[Interpreter]") {
   REQUIRE(c.interpreter.V[0xF] == 1); // LSB == 1
 }
 
-TEST_CASE("Opcode 0xFX65 Set Vx = Vx SHL Vx", "[Interpreter]") {
+TEST_CASE("Opcode 0xFX65 copies values from memory into registrs",
+          "[Interpreter]") {
   uint8_t v0 = 15, v1 = 26, v2 = 31, v3 = 99; // Arbitrary numbers
   c.memory[c.interpreter.I] = v0;
   c.memory[c.interpreter.I + 1] = v1;
