@@ -251,7 +251,6 @@ TEST_CASE("Opcode 0xFX1E increments I by Vx", "[Interpreter]") {
   REQUIRE(c.interpreter.I == 0x100); // 1 + FF
 }
 
-
 TEST_CASE("Opcode 0xFX55 copies values from registers into memory", "[Interpreter]") {
   uint8_t v0 = 19, v1 = 20, v2 = 11, v3 = 12; // Arbitrary numbers
   c.interpreter.V[0] = v0;
@@ -264,4 +263,14 @@ TEST_CASE("Opcode 0xFX55 copies values from registers into memory", "[Interprete
   REQUIRE(c.memory[c.interpreter.I + 1] == v1);
   REQUIRE(c.memory[c.interpreter.I + 2] == v2);
   REQUIRE(c.memory[c.interpreter.I + 3] == v3);
+}
+
+TEST_CASE("Opcode 0xFX33 Stores the BCD representation of Vx starting from I "
+          "in memory",
+          "[Interpreter]") {
+  c.interpreter.V[0] = 123;
+  c.interpreter.DecodeAndExecute(0xF033);
+  REQUIRE(c.memory[c.interpreter.I] == 1);
+  REQUIRE(c.memory[c.interpreter.I + 1] == 2);
+  REQUIRE(c.memory[c.interpreter.I + 2] == 3);
 }
