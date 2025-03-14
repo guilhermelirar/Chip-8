@@ -2,6 +2,7 @@
 #define Interpreter_HPP
 
 #include <cstdint>
+#include <random>
 
 class CHIP8;
 
@@ -19,7 +20,10 @@ public:
   uint8_t sp;         // Stack pointer
 
   CHIP8* chip8;       // CHIP-8 System
-  
+ 
+  std::random_device rd;
+  std::mt19937 gen;
+
   Interpreter(CHIP8* chip8);  // Constructor
  
   void DecodeAndExecute(uint16_t opcode);
