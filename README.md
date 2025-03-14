@@ -98,6 +98,7 @@ make test
   <img src="images/ibm-logo-rom.png" width="400">
   <img src="images/chip8-logo-rom.png" width="400">
   <img src="images/corax-rom.png" width="400">
+  <img src="images/flags-rom.png" width="400">
 </p>
 
 ---
