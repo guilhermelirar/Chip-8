@@ -287,3 +287,10 @@ TEST_CASE("Opcode 0x9XY0 Skips next instruction if Vx != Vy", "[Interpreter]") {
   c.interpreter.DecodeAndExecute(0x9010);
   REQUIRE(c.interpreter.pc == pc + 2); // Different then don't skip
 }
+
+TEST_CASE("Opcode 0xBNNN jumps to loaction NNN + V0", 
+          "[Interpreter]") {
+  c.interpreter.V[0] = 100;
+  c.interpreter.DecodeAndExecute(0xB0FF);
+  REQUIRE(c.interpreter.pc == 0xFF + 100);
+}
