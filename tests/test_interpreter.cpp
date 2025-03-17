@@ -353,3 +353,10 @@ TEST_CASE("Opcode FX18 loads sound timer with teh value of Vx", "[Interpreter]")
   c.interpreter.DecodeAndExecute(0xF418);
   REQUIRE(c.interpreter.soundTimer == c.interpreter.V[3]);
 }
+
+// FX29
+TEST_CASE("Opcode FX29 sets I to location of sprite with digit Vx ", "[Interpreter]") {
+  c.interpreter.V[4] = 0;
+  c.interpreter.DecodeAndExecute(0xF429); // Sprite for font digit 0
+  REQUIRE(c.interpreter.I == 0x50); // Location of sprite '0'
+}
