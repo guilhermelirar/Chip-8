@@ -324,3 +324,18 @@ TEST_CASE("Opcode FX07 loads Vx with teh value of delay timer", "[Interpreter]")
   c.interpreter.DecodeAndExecute(0xF107);
   REQUIRE(c.interpreter.V[1] == c.interpreter.delayTimer);
 }
+
+// FX07
+TEST_CASE("Opcode FX0A Waits for a key to be pressed, and store the value in "
+          "Vx (stops all execution)",
+          "[Interpreter]") {
+  uint16_t firstPC = c.interpreter.pc;
+  memset(Input::GetKeyStateForTest(), false, 16); // No key is pressed
+  c.interpreter.DecodeAndExecute(0xF00A);
+  REQUIRE(c.interpreter.pc == firstPC - 2); // Equivalent to stop the execution
+  
+  c.interpreter.pc += 2; // Fetch byte x 2
+  Input::GetKeyStateForTest()[2] = true; // A key is pressed
+  c.interpreter.DecodeAndExecute(0xF00A);
+  REQUIRE(c.interpreter.pc == firstPC);
+}
