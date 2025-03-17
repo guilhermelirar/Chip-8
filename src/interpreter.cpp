@@ -1,4 +1,5 @@
 #include "interpreter.hpp"
+#include "input.hpp"
 #include "chip8.hpp"
 
 Interpreter::Interpreter(CHIP8* chip8): chip8(chip8), gen(rd()) {
@@ -128,10 +129,20 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
+    // 0xEX9E SKP Vx
+    case (0xE): {
+      uint8_t x = (0x0F00 & opcode) >> 8;
+      if (Input::IsKeyDown(V[x])) {
+        pc += 2;
+      }
+      break;
+    }
+
     case (0xF): {
       uint8_t x = (0x0F00 & opcode) >> 8;
       uint8_t mode = 0xFF & opcode;
       ExecuteFxInstruction(x, mode);
+      break;
     }
   }  
 }

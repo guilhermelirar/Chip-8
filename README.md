@@ -7,7 +7,7 @@ This project is a [Chip-8](https://en.wikipedia.org/wiki/CHIP-8) emulator/interp
 ## Features
 
 - **ROM loading from command line**: chip-8 programs, with the appropriate max. size, can be loaded from the command line.
-- **Fetch-Decode-Execute:** as of march 14, 2025, 27/35 opcodes are implemented.
+- **Fetch-Decode-Execute:** as of march 16, 2025, 28/35 opcodes are implemented.
   <details>
     <summary>See list of implemented CHIP-8 instructions</summary>
 
@@ -36,6 +36,7 @@ This project is a [Chip-8](https://en.wikipedia.org/wiki/CHIP-8) emulator/interp
        the result in Vx.
     - `DXYN` **DRW Vx, Vy, N**: Draws a N height sprite located at the memory
        position pointed by I register, in position (Vx, Vy).
+    - `EX9E` **SKP Vx**: Skips next instruction if key with value of Vx is pressed.
     - `FX1E` **ADD I, Vx**: Values of I and Vx are added and stored in I.
     - `FX33` **ADD I, Vx**: Stores the BCD value of Vx in memory, starting from location I. 
     - `FX55` **LD Vx, \[I]**: reads X + 1 values from registers V0 to VX, into memory starting at location I.
