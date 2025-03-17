@@ -236,6 +236,10 @@ void Interpreter::RunCycle() {
 
 void Interpreter::ExecuteFxInstruction(uint8_t x, uint8_t mode) {
   switch (mode) {
+    case (7): {
+      V[x] = delayTimer;
+      break;
+    }
     case (0x65): {
       memcpy(V, &chip8->memory[I], (x + 1) * sizeof(uint8_t));
       break;
