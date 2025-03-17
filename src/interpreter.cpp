@@ -260,6 +260,12 @@ void Interpreter::ExecuteFxInstruction(uint8_t x, uint8_t mode) {
       break;
     }
 
+    // LD DT, Vx
+    case (0x15): {
+      delayTimer = V[x];
+      break;
+    }
+
     case (0x65): {
       memcpy(V, &chip8->memory[I], (x + 1) * sizeof(uint8_t));
       break;

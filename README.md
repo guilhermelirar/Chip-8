@@ -7,7 +7,8 @@ This project is a [Chip-8](https://en.wikipedia.org/wiki/CHIP-8) emulator/interp
 ## Features
 
 - **ROM loading from command line**: chip-8 programs, with the appropriate max. size, can be loaded from the command line.
-- **Fetch-Decode-Execute:** as of march 17, 2025, 31/35 opcodes are implemented.
+- **Fetch-Decode-Execute:** as of march 17, 2025, 32/34 opcodes are implemented out of a total of 35 from classic CHIP-0 
+ (0NNN SYS addr is not considered on modern Chip-8 implementations)
   <details>
     <summary>See list of implemented CHIP-8 instructions</summary>
 
@@ -40,6 +41,7 @@ This project is a [Chip-8](https://en.wikipedia.org/wiki/CHIP-8) emulator/interp
     - `EXA1` **SKNP Vx**: Skips next instruction if key with value of Vx is not pressed.
     - `FX07` **LD Vx, DT**: Load Vx with value of Delta Timer.
     - `FX0A` **LD Vx, K**: Wait for a key press and store the value of the key in Vx.
+    - `FX0A` **LD DT, Vx**: Loads Delay Timer with the value of Vx.
     - `FX1E` **ADD I, Vx**: Values of I and Vx are added and stored in I.
     - `FX33` **LD B, Vx**: Stores the BCD value of Vx in memory, starting from location I. 
     - `FX55` **LD Vx, \[I]**: reads X + 1 values from registers V0 to VX, into memory starting at location I.
