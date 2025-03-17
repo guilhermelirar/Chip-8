@@ -317,3 +317,10 @@ TEST_CASE("Opcode EXA1 skip next instruction if key (Vx) not presed",
   c.interpreter.DecodeAndExecute(0xE0A1);
   REQUIRE(c.interpreter.pc == firstPC + 2); // Key not pressed
 }
+
+// FX07
+TEST_CASE("Opcode FX07 loads Vx with teh value of delay timer", "[Interpreter]") {
+  c.interpreter.delayTimer = 99;
+  c.interpreter.DecodeAndExecute(0xF107);
+  REQUIRE(c.interpreter.V[1] == c.interpreter.delayTimer);
+}
