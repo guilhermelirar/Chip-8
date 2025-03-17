@@ -236,10 +236,30 @@ void Interpreter::RunCycle() {
 
 void Interpreter::ExecuteFxInstruction(uint8_t x, uint8_t mode) {
   switch (mode) {
+    // LD Vx, DT
     case (7): {
       V[x] = delayTimer;
       break;
     }
+
+    // LD Vx, K
+    case (0xA): {
+      bool waitingForKey = true;
+
+      for (int key = 0; key < 16; key++) {
+        if (Input::IsKeyDown(key)) {
+          V[x] = key;
+          waitingForKey = false;
+          break;
+        }  
+      }
+      
+      if (waitingForKey) {
+        pc -= 2;
+      }
+      break;
+    }
+
     case (0x65): {
       memcpy(V, &chip8->memory[I], (x + 1) * sizeof(uint8_t));
       break;
