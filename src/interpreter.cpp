@@ -184,38 +184,42 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
     // ADD Vx, Vy
     case (4): {
       uint16_t res = V[x] + V[y];
-      V[0xF] = (res > 0xFF) ? 1 : 0;  // Set VF flag for overflow
-      V[x] = res & 0xFF;              // Store the lower 8 bits of the result
+      V[x] = res & 0xFF;  // Store the lower 8 bits of the result
+      V[0xF] = (res > 255);  // Set VF flag for overflow
       break;
     }
 
     // SUB Vx, Vy
     case (5): {
       uint8_t res = V[x] - V[y];
-      V[0xF] = (V[x] > V[y]) ? 1 : 0;  // Set VF flag for not borrow 
+      uint8_t notBorrow = (V[x] >= V[y]) ? 1 : 0; 
       V[x] = res;
+      V[0xF] = notBorrow;
       break;
     }
 
     // SHR Vx {, Vy}
     case (6): {
-      V[0xF] = V[x] & 1;  // Set VF flag for LSB
+      uint8_t lsb = V[x] & 1;  // least significant bit
       V[x] >>= 1; // Shift right
+      V[0xF] = lsb;
       break;
     }
 
     // SUBN Vx, Vy
     case (7): {
       uint8_t res = V[y] - V[x];
-      V[0xF] = (V[y] > V[x]) ? 1 : 0;  // Set VF flag for not borrow 
+      uint8_t notBorrow = (V[y] >= V[x]) ? 1 : 0;
       V[x] = res;
+      V[0xF] = notBorrow; // Set VF flag for not borrow 
       break;
     }
 
     // SHL Vx {, Vy}
     case (0xE): {
-      V[0xF] = (V[x] & 0x80) >> 7;  // Set VF flag for MSB
+      uint8_t msb = (V[x] & 0x80) >> 7;  // Most significant bit
       V[x] <<= 1; // Shift left
+      V[0xF] = msb;
       break;
     }
   }
