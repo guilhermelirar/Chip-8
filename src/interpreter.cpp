@@ -272,6 +272,14 @@ void Interpreter::ExecuteFxInstruction(uint8_t x, uint8_t mode) {
       break;
     }
 
+    // LD F, Vx
+    case (0x29): {
+      if (V[x] < 16) {
+        I = CHIP8::FONT_DATA_START + CHIP8::FONT_SPRITE_HEIGHT * V[x];
+      }
+      break;
+    }
+
     case (0x65): {
       memcpy(V, &chip8->memory[I], (x + 1) * sizeof(uint8_t));
       break;
