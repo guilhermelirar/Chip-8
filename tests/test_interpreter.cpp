@@ -305,3 +305,15 @@ TEST_CASE("Opcode EX9E skip next instruction if key (Vx) pressed",
   c.interpreter.DecodeAndExecute(0xE09E);
   REQUIRE(c.interpreter.pc == firstPC + 2);
 }
+
+// EXA1
+TEST_CASE("Opcode EXA1 skip next instruction if key (Vx) not presed", 
+          "[Interpreter]") {
+  Input::GetKeyStateForTest()[2] = true;
+  uint16_t firstPC = c.interpreter.pc;
+  c.interpreter.DecodeAndExecute(0xE0A1);
+  REQUIRE(c.interpreter.pc == firstPC); // Key is pressed
+  Input::GetKeyStateForTest()[2] = false;
+  c.interpreter.DecodeAndExecute(0xE0A1);
+  REQUIRE(c.interpreter.pc == firstPC + 2); // Key not pressed
+}
