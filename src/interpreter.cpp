@@ -129,12 +129,16 @@ void Interpreter::DecodeAndExecute(uint16_t opcode) {
       break;
     }
 
-    // 0xEX9E SKP Vx
+    // 0xEX__ Check if pressed
     case (0xE): {
       uint8_t x = (0x0F00 & opcode) >> 8;
-      if (Input::IsKeyDown(V[x])) {
+      uint8_t mode = (0xFF & opcode);
+      bool pressed = Input::IsKeyDown(V[x]);
+      
+      // SKP Vx or SKNP Vx
+      if ((mode == 0x9E && pressed) || (mode == 0xA1 && !pressed)) {
         pc += 2;
-      }
+      } 
       break;
     }
 
