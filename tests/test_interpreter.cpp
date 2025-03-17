@@ -1,7 +1,9 @@
 #define CATCH_CONFIG_MAIN
+#define UNIT_TEST
 #include "catch.hpp"
 #include "chip8.hpp"
 #include "interpreter.hpp"
+#include "input.hpp"
 
 static CHIP8 c;
 
@@ -293,4 +295,13 @@ TEST_CASE("Opcode 0xBNNN jumps to loaction NNN + V0",
   c.interpreter.V[0] = 100;
   c.interpreter.DecodeAndExecute(0xB0FF);
   REQUIRE(c.interpreter.pc == 0xFF + 100);
+}
+
+TEST_CASE("Opcode EX9E skip next instruction if key (Vx) pressed",
+          "[Interpreter]") {
+  c.interpreter.V[0] = 2;
+  Input::GetKeyStateForTest()[2] = true;
+  uint16_t firstPC = c.interpreter.pc;
+  c.interpreter.DecodeAndExecute(0xE09E);
+  REQUIRE(c.interpreter.pc == firstPC + 2);
 }
