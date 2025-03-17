@@ -346,3 +346,10 @@ TEST_CASE("Opcode FX15 loads delay timer with teh value of Vx", "[Interpreter]")
   c.interpreter.DecodeAndExecute(0xF315);
   REQUIRE(c.interpreter.delayTimer == c.interpreter.V[3]);
 }
+
+// FX18
+TEST_CASE("Opcode FX18 loads sound timer with teh value of Vx", "[Interpreter]") {
+  c.interpreter.V[4] = 100;
+  c.interpreter.DecodeAndExecute(0xF418);
+  REQUIRE(c.interpreter.soundTimer == c.interpreter.V[3]);
+}
