@@ -7,6 +7,8 @@
 class CHIP8;
 
 class Interpreter {
+private:
+  uint32_t lastTimerUpdate;
 public:
   uint8_t V[16];      // General purpose registers
   uint16_t I;         // Index register
@@ -25,7 +27,9 @@ public:
   std::mt19937 gen;
 
   Interpreter(CHIP8* chip8);  // Constructor
- 
+
+  void UpdateTimer();
+
   void DecodeAndExecute(uint16_t opcode);
   uint8_t FetchByte();
   void RunCycle();

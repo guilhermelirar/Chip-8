@@ -1,9 +1,22 @@
+#include <SDL2/SDL_timer.h>
 #include "interpreter.hpp"
 #include "input.hpp"
 #include "chip8.hpp"
 
-Interpreter::Interpreter(CHIP8* chip8): chip8(chip8), gen(rd()) {
+Interpreter::Interpreter(CHIP8* chip8): lastTimerUpdate(0), chip8(chip8), gen(rd()) {
   pc = 0x200;
+}
+
+void Interpreter::UpdateTimer() {
+  uint32_t currentTime = SDL_GetTicks();
+
+  // Approx 60hz decrement
+  if (currentTime - lastTimerUpdate >= 16) {
+    if (delayTimer > 0) delayTimer--;
+    if (soundTimer > 0) soundTimer--;
+
+    lastTimerUpdate = currentTime;
+  }
 }
 
 void Interpreter::DecodeAndExecute(uint16_t opcode) {

@@ -36,7 +36,8 @@ void CHIP8::Run() {
 
     Input::HandleInput();
     interpreter.RunCycle();
-    
+    interpreter.UpdateTimer();
+
     if (Input::quitRequested) {
       return;
     }
