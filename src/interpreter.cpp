@@ -174,18 +174,21 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
     // OR Vx, Vy
     case (1): {
       V[x] |= V[y];
+      V[0xF] = 0;
       break;
     }
 
     // AND Vx, Vy
     case (2): {
       V[x] &= V[y];
+      V[0xF] = 0;
       break;
     }
 
-    // AND Vx, Vy
+    // XOR Vx, Vy
     case (3): {
       V[x] ^= V[y];
+      V[0xF] = 0;
       break;
     }
 
