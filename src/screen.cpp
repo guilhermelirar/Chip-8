@@ -103,6 +103,5 @@ void Screen::Render() {
     }
   }
 
-  SDL_RenderPresent(renderer);  
-  SDL_Delay(4); 
+  SDL_RenderPresent(renderer);
 }

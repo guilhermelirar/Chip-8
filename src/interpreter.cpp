@@ -8,15 +8,10 @@ Interpreter::Interpreter(CHIP8* chip8): lastTimerUpdate(0), chip8(chip8), gen(rd
 }
 
 void Interpreter::UpdateTimer() {
-  uint32_t currentTime = SDL_GetTicks();
-
-  // Approx 60hz decrement
-  if (currentTime - lastTimerUpdate >= 16) {
-    if (delayTimer > 0) delayTimer--;
-    if (soundTimer > 0) soundTimer--;
-
-    lastTimerUpdate = currentTime;
-  }
+  if (delayTimer > 0)
+    delayTimer--;
+  if (soundTimer > 0)
+    soundTimer--;
 }
 
 void Interpreter::DecodeAndExecute(uint16_t opcode) {

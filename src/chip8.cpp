@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 
-CHIP8::CHIP8() : interpreter(this), screen(this) {
+CHIP8::CHIP8() : frameStart(0), interpreter(this), screen(this) {
   // Initializing font data
   uint8_t fontData[] = {
       0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
@@ -29,18 +29,38 @@ CHIP8::CHIP8() : interpreter(this), screen(this) {
   memcpy(&memory[0x50], fontData, sizeof(fontData));
 }
 
+
+
 void CHIP8::Run() {
   screen.InitSDL();
-  while (true) {
-    screen.Render();
 
-    Input::HandleInput();
-    interpreter.RunCycle();
-    interpreter.UpdateTimer();
+  uint32_t frameStart = SDL_GetTicks();
+  uint32_t currentTime;
+  uint32_t lastCycleTime = SDL_GetTicks();
+  uint32_t cycleInterval = 1000 / 500;
+
+  while (true) {
+    currentTime = SDL_GetTicks();
+    
+    // Rendering and timer decreasin at 60 Hz
+    if (currentTime - frameStart >= 16) {
+      interpreter.UpdateTimer();
+      screen.Render();
+      frameStart = currentTime;
+      Input::HandleInput();
+    }
+
+    // Cycles at 500 Hz
+    if (currentTime - lastCycleTime >= cycleInterval) {
+      interpreter.RunCycle();
+      lastCycleTime = currentTime;
+    }
 
     if (Input::quitRequested) {
       return;
     }
+
+    SDL_Delay(1); // Limit CPU usage
   }
 }
 
