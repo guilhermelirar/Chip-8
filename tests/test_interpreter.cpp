@@ -236,16 +236,18 @@ TEST_CASE("Opcode 0x8XYE Set Vx = Vx SHL Vx", "[Interpreter]") {
 TEST_CASE("Opcode 0xFX65 copies values from memory into registrs",
           "[Interpreter]") {
   uint8_t v0 = 15, v1 = 26, v2 = 31, v3 = 99; // Arbitrary numbers
-  c.memory[c.interpreter.I] = v0;
-  c.memory[c.interpreter.I + 1] = v1;
-  c.memory[c.interpreter.I + 2] = v2;
-  c.memory[c.interpreter.I + 3] = v3;
+  uint16_t initialI = c.interpreter.I;
+  c.memory[initialI] = v0;
+  c.memory[initialI + 1] = v1;
+  c.memory[initialI + 2] = v2;
+  c.memory[initialI + 3] = v3;
 
   c.interpreter.DecodeAndExecute(0xF365); // Load those values
   REQUIRE(c.interpreter.V[0] == v0);
   REQUIRE(c.interpreter.V[1] == v1);
   REQUIRE(c.interpreter.V[2] == v2);
   REQUIRE(c.interpreter.V[3] == v3);
+  REQUIRE(c.interpreter.I == initialI + 4);
 }
 
 // FX1E
@@ -263,11 +265,13 @@ TEST_CASE("Opcode 0xFX55 copies values from registers into memory", "[Interprete
   c.interpreter.V[2] = v2;
   c.interpreter.V[3] = v3;
 
+  uint16_t initialI = c.interpreter.I;
   c.interpreter.DecodeAndExecute(0xF355); // Load those values
-  REQUIRE(c.memory[c.interpreter.I] == v0);
-  REQUIRE(c.memory[c.interpreter.I + 1] == v1);
-  REQUIRE(c.memory[c.interpreter.I + 2] == v2);
-  REQUIRE(c.memory[c.interpreter.I + 3] == v3);
+  REQUIRE(c.memory[initialI] == v0);
+  REQUIRE(c.memory[initialI + 1] == v1);
+  REQUIRE(c.memory[initialI + 2] == v2);
+  REQUIRE(c.memory[initialI + 3] == v3);
+  REQUIRE(c.interpreter.I == initialI + 4);
 }
 
 TEST_CASE("Opcode 0xFX33 Stores the BCD representation of Vx starting from I "
