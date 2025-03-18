@@ -1,4 +1,5 @@
 #include "chip8.hpp"
+#include "input.hpp"
 #include <SDL2/SDL_events.h>
 #include <cstring>
 #include <fstream>
@@ -32,13 +33,12 @@ void CHIP8::Run() {
   screen.InitSDL();
   while (true) {
     screen.Render();
-    interpreter.RunCycle();
 
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_QUIT) {
-        return;
-      }
+    Input::HandleInput();
+    interpreter.RunCycle();
+    
+    if (Input::quitRequested) {
+      return;
     }
   }
 }

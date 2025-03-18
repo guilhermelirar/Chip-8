@@ -4,17 +4,17 @@
 #include <cstdint>
 
 class Input {
-  public:
-    static void HandleInput();
-    static bool IsKeyDown(uint8_t key);
+public:
+  static bool quitRequested;
+  static void HandleInput();
+  static bool IsKeyDown(uint8_t key);
 
 #ifdef UNIT_TEST
-    static bool* GetKeyStateForTest() { return keyState; }
+  static bool *GetKeyStateForTest() { return keyState; }
 #endif
 
-  private:
-    static bool keyState[16];
+private:
+  static bool keyState[16];
 };
 
 #endif // INPUT_HPP
-

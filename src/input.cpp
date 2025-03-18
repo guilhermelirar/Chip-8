@@ -1,6 +1,7 @@
 #include "input.hpp"
 #include <SDL2/SDL.h>
 
+bool Input::quitRequested = false;
 bool Input::keyState[16] = {false};
 
 void Input::HandleInput() {
@@ -63,6 +64,10 @@ void Input::HandleInput() {
         break;
       }
     } break;
+    case SDL_QUIT: {
+      quitRequested = true;
+      break;
+    }
     }
   }
 }
