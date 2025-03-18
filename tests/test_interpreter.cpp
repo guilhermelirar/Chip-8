@@ -142,6 +142,7 @@ TEST_CASE(
   c.interpreter.DecodeAndExecute(0x610F); // V1 <- 0F
   c.interpreter.DecodeAndExecute(0x8011); // V1 <- F0 | 0F = FF
   REQUIRE(c.interpreter.V[0] == 0xFF);
+  REQUIRE(c.interpreter.V[0xF] == 0);
 }
 
 TEST_CASE(
@@ -151,6 +152,7 @@ TEST_CASE(
   c.interpreter.DecodeAndExecute(0x610F); // V1 <- 0F
   c.interpreter.DecodeAndExecute(0x8012); // V1 <- F0 & 0F = 0
   REQUIRE(c.interpreter.V[0] == 0);
+  REQUIRE(c.interpreter.V[0xF] == 0);
 }
 
 TEST_CASE(
@@ -160,6 +162,7 @@ TEST_CASE(
   c.interpreter.DecodeAndExecute(0x610F); // V1 <- 0F
   c.interpreter.DecodeAndExecute(0x8013); // V1 <- FF ^ 0F = F0
   REQUIRE(c.interpreter.V[0] == 0xF0);
+  REQUIRE(c.interpreter.V[0xF] == 0);
 }
 
 TEST_CASE(
