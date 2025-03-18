@@ -200,12 +200,12 @@ TEST_CASE(
     "Opcode 0x8XY6 Set Vx = Vx SHR 1",
     "[Interpreter]") {
   c.interpreter.DecodeAndExecute(0x6F00); // VF <- 0
-  c.interpreter.DecodeAndExecute(0x6000); // V0 <- 00
+  c.interpreter.DecodeAndExecute(0x6100); // V1 <- 00
   c.interpreter.DecodeAndExecute(0x8016); // Shift right
   REQUIRE(c.interpreter.V[0] == 0);
   REQUIRE(c.interpreter.V[0xF] == 0); // LSB == 0 
   
-  c.interpreter.DecodeAndExecute(0x6003); // V0 <- 3
+  c.interpreter.DecodeAndExecute(0x6103); // V1 <- 3
   c.interpreter.DecodeAndExecute(0x8016); // SHR
   REQUIRE(c.interpreter.V[0] == 1);
   REQUIRE(c.interpreter.V[0xF] == 1); // LSB == 1
@@ -222,12 +222,12 @@ TEST_CASE("Opcode 0x8XY7 Set Vx = Vy - Vx (Sub N)", "[Interpreter]") {
 
 TEST_CASE("Opcode 0x8XYE Set Vx = Vx SHL Vx", "[Interpreter]") {
   c.interpreter.DecodeAndExecute(0x6F00); // VF <- 0
-  c.interpreter.DecodeAndExecute(0x6001); // V0 <- 0000 0001 b
+  c.interpreter.DecodeAndExecute(0x6101); // V1 <- 0000 0001 b
   c.interpreter.DecodeAndExecute(0x801E); // Shift left
   REQUIRE(c.interpreter.V[0] == 2);
   REQUIRE(c.interpreter.V[0xF] == 0); // MSB == 0 
   
-  c.interpreter.DecodeAndExecute(0x6081); // V0 <- 1000 0001 b
+  c.interpreter.DecodeAndExecute(0x6181); // V1 <- 1000 0001 b
   c.interpreter.DecodeAndExecute(0x801E); // Shift left 
   REQUIRE(c.interpreter.V[0] == 2);
   REQUIRE(c.interpreter.V[0xF] == 1); // LSB == 1
