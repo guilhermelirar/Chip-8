@@ -28,9 +28,9 @@ in modern implementations)
     - `8XY3` **XOR Vx, Vy**: Loads Vx as Vx XOR Vy (bitwise).
     - `8XY4` **ADD Vx, Vy**: Adds Vy to Vx and sets VF as 1 if overflow.
     - `8XY5` **SUB Vx, Vy**: Subtracts Vy from Vx and sets VF as not borrow.
-    - `8XY6` **SHR Vx {, Vy}**: Shifts Vx 1 bit right and sets VF as previous Vx least significant bit.
-    - `8XY7` **SUBN Vx, Vy**: Sets Vx as Vy - Vx and VF as not borrow.
-    - `8XYE` **SHL Vx {, Vy}**: Shifts Vx 1 bit left and sets VF as previous Vx most significant bit.
+    - `8XY6` **SHR Vx, Vy**: Sets Vx to Vy shifted 1 bit right and sets VF to Vy least significant bit.
+    - `8XY7` **SUBN Vx, Vy**: Sets Vx to Vy - Vx and VF to NOT borrow.
+    - `8XYE` **SHL Vx, Vy**: Sets Vx to Vy shifted 1 bit left and sets VF to Vy most significant bit.
     - `9XY0` **SNE Vx, Vy**: Skips instruction if Vx is not equal to Vy.
     - `ANNN` **LD I**: Loads Index register with NNN.
     - `BNNN` **JP V0, *addr***: Jumps to V0 + NNN.

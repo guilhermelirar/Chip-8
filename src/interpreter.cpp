@@ -211,7 +211,8 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
 
     // SHR Vx {, Vy}
     case (6): {
-      uint8_t lsb = V[x] & 1;  // least significant bit
+      uint8_t lsb = V[y] & 1;  // least significant bit
+      V[x] = V[y];
       V[x] >>= 1; // Shift right
       V[0xF] = lsb;
       break;
@@ -228,7 +229,8 @@ void Interpreter::ExecuteLogicArithmetic(uint16_t opcode) {
 
     // SHL Vx {, Vy}
     case (0xE): {
-      uint8_t msb = (V[x] & 0x80) >> 7;  // Most significant bit
+      uint8_t msb = (V[y] & 0x80) >> 7;  // Most significant bit
+      V[x] = V[y];
       V[x] <<= 1; // Shift left
       V[0xF] = msb;
       break;
