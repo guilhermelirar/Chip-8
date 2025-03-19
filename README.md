@@ -53,6 +53,10 @@ in modern implementations)
   </details>
 
 - **Rendering with SDL2**: the Chip-8's 64x32 screen is implemented by a 960x480 SDL window.
+- **Event handling with SDL2**: SDL is also used for handling events such as keyboard inputs.
+
+Future features: as of march 19, 2025, not all requirements of CHIP-8 are met, such as 
+audio feature (beeps).
 
 ---
 
@@ -104,14 +108,20 @@ This project has automated tests with `catch.hpp`. Tests can be run with the Mak
 make test
 ```
 
+Additionally, test ROMS such as the ones found on 
+[Timendu's chip8 test suite](https://github.com/Timendus/chip8-test-suite?tab=readme-ov-file)
+can be used to test features. Outputs of some of these roms are shown in the Screenshots
+section. As of march 19, 2025, this Chip-8 interpreter passes `corax+.ch8`, `flags.ch8` and  `quirks.ch8`, 
+for example.
+
 ---
 
 ## Screenshots
 <p align="center">
   <img src="images/ibm-logo-rom.png" width="400">
-  <img src="images/chip8-logo-rom.png" width="400">
   <img src="images/corax-rom.png" width="400">
   <img src="images/flags-rom.png" width="400">
+  <img src="images/quirks-rom.png" width="400">
 </p>
 
 ---
