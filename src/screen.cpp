@@ -4,6 +4,7 @@
 
 #include <cstring>
 
+const int Screen::SPRITE_WIDTH = 8;
 const int Screen::X_TILES = 64;
 const int Screen::Y_TILES = 32;
 const int Screen::WIN_WIDTH = X_TILES * 15;
@@ -54,21 +55,22 @@ void Screen::InitSDL() {
 void Screen::drawSprite(uint8_t x, uint8_t y, uint8_t spriteHeight,
                         uint8_t *sprite) {
 
+  y %= Y_TILES;
+  if (y + spriteHeight > Y_TILES) {
+    return;
+  }
+
   for (uint8_t i = 0; i < spriteHeight; i++) {
     uint8_t spriteLine = sprite[i];
 
-    int destY = (y + i) % Y_TILES; // Y where the line will be draw
-
-    bool lineBool[8];
-    for (uint8_t j = 0; j < 8; j++) {
-      lineBool[j] = (spriteLine >> (7 - j)) & 0x01;
-    }
+    int destY = (y + i); // Y where the line will be draw
 
     for (uint8_t j = 0; j < 8; j++) {
       uint8_t destXforPixel = (x + j) % X_TILES; // X position of the j pixel
       uint16_t idxInBuffer = destXforPixel + (destY * X_TILES);
 
-      bool newPixelValue = (buffer[idxInBuffer] ^ lineBool[j]);
+      bool newPixelValue =
+          (buffer[idxInBuffer] ^ ((spriteLine >> (7 - j)) & 1));
 
       // Collision of pixels
       if (buffer[idxInBuffer] && !newPixelValue) {
@@ -78,7 +80,6 @@ void Screen::drawSprite(uint8_t x, uint8_t y, uint8_t spriteHeight,
     }
   }
 }
-
 
 void Screen::Render() {
   // Clears screen with black

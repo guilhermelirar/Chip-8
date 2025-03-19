@@ -11,6 +11,7 @@ private:
   SDL_Window *window;
   SDL_Renderer *renderer;
 public:
+  static const int SPRITE_WIDTH;
   static const int X_TILES, Y_TILES;
   static const int WIN_WIDTH, WIN_HEIGHT;
 
