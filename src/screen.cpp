@@ -59,13 +59,23 @@ void Screen::drawSprite(uint8_t x, uint8_t y, uint8_t spriteHeight,
   if (y + spriteHeight > Y_TILES) {
     return;
   }
+  
+  uint8_t maxWidth = std::min<uint8_t>(SPRITE_WIDTH, X_TILES - x);
+
+  for (uint8_t i = 0; i < spriteHeight; i++) {
+    // Checking if the line has pixels outside screen
+    uint8_t hasOutsideScreen = (0xFF >> maxWidth) & sprite[i];
+    if (hasOutsideScreen) {
+      return;
+    }
+  }
 
   for (uint8_t i = 0; i < spriteHeight; i++) {
     uint8_t spriteLine = sprite[i];
 
     int destY = (y + i); // Y where the line will be draw
 
-    for (uint8_t j = 0; j < 8; j++) {
+    for (uint8_t j = 0; j < maxWidth; j++) {
       uint8_t destXforPixel = (x + j) % X_TILES; // X position of the j pixel
       uint16_t idxInBuffer = destXforPixel + (destY * X_TILES);
 
