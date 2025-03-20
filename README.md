@@ -119,6 +119,7 @@ for example.
 ## Screenshots
 <p align="center">
   <img src="images/ibm-logo-rom.png" width="400">
+  <img src="images/brix-rom.png" width="400">
   <img src="images/corax-rom.png" width="400">
   <img src="images/flags-rom.png" width="400">
   <img src="images/quirks-rom.png" width="400">
