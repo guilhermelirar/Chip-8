@@ -11,7 +11,9 @@ const int Screen::WIN_WIDTH = X_TILES * 15;
 const int Screen::WIN_HEIGHT = Y_TILES * 15;
 
 Screen::Screen(CHIP8 *chip8)
-    : window(nullptr), renderer(nullptr), chip8(chip8) {}
+    : window(nullptr), renderer(nullptr), chip8(chip8) {
+  Clear();
+}
 
 Screen::~Screen() {
   if (renderer) {
