@@ -93,7 +93,7 @@ make
 To load a Chip-8 program on the emulator, you need to pass the file path as an argument when running from the command line, for example:
 
 ```shell
-./Chip8 1-chip8-logo.ch8
+./Chip8 tetris.ch8
 ```
 
 `.ch8` extension is not enforced by this emulator. The emulator will reject a file with size that does not fit in Chip-8 area of memory dedicated to programs,
@@ -123,6 +123,7 @@ for example.
   <img src="images/corax-rom.png" width="400">
   <img src="images/flags-rom.png" width="400">
   <img src="images/quirks-rom.png" width="400">
+  <img src="images/tetris-rom.png" width="400">
 </p>
 
 ---
