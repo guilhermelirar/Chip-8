@@ -3,7 +3,9 @@
 #include "input.hpp"
 #include "chip8.hpp"
 
-Interpreter::Interpreter(CHIP8* chip8): lastTimerUpdate(0), chip8(chip8), gen(rd()) {
+Interpreter::Interpreter(CHIP8 *chip8)
+    : lastTimerUpdate(0), delayTimer(0), soundTimer(0), chip8(chip8),
+      gen(rd()) {
   pc = 0x200;
 }
 
