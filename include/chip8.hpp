@@ -3,6 +3,7 @@
 
 #include "interpreter.hpp"
 #include "screen.hpp"
+#include "sound.hpp"
 #include <cstdint>
 
 class CHIP8 {
@@ -15,7 +16,8 @@ public:
 
   uint8_t memory[MEMORY_SIZE];  // 4kb memory
   Interpreter interpreter;      // System Interpreter
-  Screen screen;
+  Screen screen;                // Display and rendering
+  Sound sound;                  // Beeping sound
 
   CHIP8();                      // Constructor
   

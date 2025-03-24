@@ -5,7 +5,8 @@
 #include <fstream>
 #include <iostream>
 
-CHIP8::CHIP8() : frameStart(0), interpreter(this), screen(this) {
+CHIP8::CHIP8()
+    : frameStart(0), interpreter(this), screen(this), sound("sound/beep.wav") {
   // Initializing font data
   uint8_t fontData[] = {
       0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
@@ -29,8 +30,6 @@ CHIP8::CHIP8() : frameStart(0), interpreter(this), screen(this) {
   memcpy(&memory[0x50], fontData, sizeof(fontData));
 }
 
-
-
 void CHIP8::Run() {
   screen.InitSDL();
 
@@ -45,6 +44,16 @@ void CHIP8::Run() {
     // Rendering and timer decreasin at 60 Hz
     if (currentTime - frameStart >= 16) {
       interpreter.UpdateTimer();
+
+      // Play sound if needed
+      if (interpreter.soundTimer > 0) {
+        if (!sound.isPlaying()) {
+          sound.Play();
+        }
+      } else if (sound.isPlaying()) {
+        sound.Stop();
+      }
+
       screen.Render();
       frameStart = currentTime;
       Input::HandleInput();
