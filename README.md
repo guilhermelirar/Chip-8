@@ -53,10 +53,8 @@ in modern implementations)
   </details>
 
 - **Rendering with SDL2**: the Chip-8's 64x32 screen is implemented by a 960x480 SDL window.
+- **Sound with SDL Mixer**: the Chip-8's buzz sound is made used a wav file and SDL Mixer library.
 - **Event handling with SDL2**: SDL is also used for handling events such as keyboard inputs.
-
-Future features: as of march 19, 2025, not all requirements of CHIP-8 are met, such as 
-audio feature (beeps).
 
 ---
 
