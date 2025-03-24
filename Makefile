@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -Iinclude
-LDFLAGS = -lSDL2
+LDFLAGS = -lSDL2 -lSDL2_mixer
 
 SRC_DIR = src
 TEST_DIR = tests
