@@ -35,7 +35,7 @@ void Screen::Clear() {
 }
 
 void Screen::InitSDL() {
-  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
     std::cerr << "Error initializing SDL: " << SDL_GetError() << std::endl;
     exit(EXIT_FAILURE);
   }
