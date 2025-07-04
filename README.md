@@ -21,7 +21,7 @@ in modern implementations)
     - `4XNN` **SNE Vx, byte**: Skip next instruction if Vx is not equal to byte.
     - `5XY0` **SE Vx, Vy**: Skip next instruction if Vx is equal to Vy.
     - `6XNN` **LD Vx *byte***: Loads register Vx with NN.
-    - `7XNN` **ADD Vx, *byte***: Add NN to register Vx.
+    - `7XNN` **ADD Vx, *byte***: Adds NN to register Vx.
     - `8XY0` **LD Vx, Vy**: Loads Vx as Vy.
     - `8XY1` **OR Vx, Vy**: Loads Vx as Vx OR Vy (bitwise).
     - `8XY2` **AND Vx, Vy**: Loads Vx as Vx AND Vy (bitwise).
@@ -40,15 +40,15 @@ in modern implementations)
        position pointed by I register, in position (Vx, Vy).
     - `EX9E` **SKP Vx**: Skips next instruction if key with value of Vx is pressed.
     - `EXA1` **SKNP Vx**: Skips next instruction if key with value of Vx is not pressed.
-    - `FX07` **LD Vx, DT**: Load Vx with value of Delta Timer.
+    - `FX07` **LD Vx, DT**: Loads Vx with value of Delta Timer.
     - `FX0A` **LD Vx, K**: Wait for a key press and store the value of the key in Vx.
     - `FX15` **LD DT, Vx**: Loads Delay Timer with the value of Vx.
     - `FX18` **LD ST, Vx**: Loads Sound Timer with the value of Vx.
-    - `FX29` **LD F, Vx**: Set I as the location of sprite for digit I (in CHIP-8 memory reserved for font).
+    - `FX29` **LD F, Vx**: Sets I as the location of sprite for digit I (in CHIP-8 memory reserved for font).
     - `FX1E` **ADD I, Vx**: Values of I and Vx are added and stored in I.
     - `FX33` **LD B, Vx**: Stores the BCD value of Vx in memory, starting from location I. 
-    - `FX55` **LD Vx, \[I]**: reads X + 1 values from registers V0 to VX, into memory starting at location I.
-    - `FX65` **LD Vx, \[I]**: reads X + 1 values from memory, starting at location I into registers V0 through Vx.
+    - `FX55` **LD Vx, \[I]**: Reads X + 1 values from registers V0 to VX, into memory starting at location I.
+    - `FX65` **LD Vx, \[I]**: Reads X + 1 values from memory, starting at location I into registers V0 through Vx.
 
   </details>
 
@@ -125,13 +125,8 @@ for example.
 </p>
 
 ---
-
-## Inspiration and more information about Chip-8
-
-This is an ongoing personal project for the purpose of fun and learning about emulators. 
-I got this idea because I initially thought of an NES emulator, but decided to start with a smaller but still fun project, Chip-8.
-
-In this project, the [Cowgod's Chip-8 Technical Reference](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#dispcoords) is being a good guide.
+## Useful reference
+[Cowgod's Chip-8 Technical Reference](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#dispcoords)
 
 ---
 
